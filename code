@@ -1,0 +1,224 @@
+CREATE DATABASE restaurant_management;
+
+USE restaurant_management;
+
+CREATE TABLE branches (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    address VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE chef (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    branch_id INT NOT NULL,
+    FOREIGN KEY (branch_id) REFERENCES branches(id)
+);
+drop table if exists `SALE_DETAIL`;
+create table `SALE_DETAIL`(
+	`Date` date NOT NULL,
+	`Daily` int NOT NULL,
+	`Weekly` int DEFAULT NULL,
+	`Monthly` int DEFAULT NULL,
+	`Rname` varchar(30) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE customer (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    phone VARCHAR(255) NOT NULL
+);
+drop table if exists `SUPPLIER`;
+create table `SUPPLIER`(
+	`Fname` varchar(15) NOT NULL,
+	`Lname` varchar(15) NOT NULL,
+	`Address` varchar(30) NOT NULL,
+	`Contact` varchar(20) NOT NULL,
+	`Details` varchar(500) DEFAULT NULL,
+	PRIMARY KEY (`Fname`,`Lname`,`Address`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE meal (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    price DECIMAL(10, 2) NOT NULL
+);
+
+drop table if exists `BOOKING`;
+create table `BOOKING`(
+	`Booking_Id` int NOT NULL AUTO_INCREMENT,
+	`Table_Num` varchar(30) NOT NULL,
+	`Date` varchar(30) NOT NULL,
+	`Time` varchar(30) NOT NULL,
+	`Cust_Id` int NOT NULL,
+	PRIMARY KEY (`Booking_Id`),
+	FOREIGN KEY (`Cust_Id`) REFERENCES `CUSTOMER`(`Customer_Id`),
+	FOREIGN KEY (`Table_Num`) REFERENCES `TABLES`(`Table_Number`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1; 
+
+CREATE TABLE restaurant (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    address VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE waiter (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    branch_id INT NOT NULL,
+    FOREIGN KEY (branch_id) REFERENCES branches(id)
+);
+
+insert into `MENU`(`Name`,`Price`,`Type`,`Category`)
+values
+("Vegetable Pakora","3.00","Veg","Starters"),
+("Vegetable Samosa","3.00","Veg","Starters"),
+("Onion Bhaji ","3.00","Veg","Starters"),
+("Potato and Mushroom Chaat","3.00","Veg","Starters"),
+("Mushroom Garlic Fry","3.00","Veg","Starters"),
+("Chicken Tikka","4.00","Non-Veg","Starters"),
+("Tandoori Chicken","4.00","Non-Veg","Starters"),
+("Chicken Garlic Fry","4.00","Non-Veg","Starters"),
+("Chicken Tikka on Puree","4.00","Non-Veg","Starters"),
+("Lamb Tikka","4.00","Non-Veg","Starters"),
+("Tandoori King Prawn","6.95","Non-Veg","SeaFood"),
+("King Prawn Rosun","5.95","Non-Veg","SeaFood"),
+("King Prawn on Puree","5.95","Non-Veg","SeaFood"),
+("Prawn Bhuna on Puree","3.95","Non-Veg","SeaFood"),
+("Prawn Cocktail","3.95","Non-Veg","SeaFood"),
+("Chi/Lam Sashlik Chi","9.95","Non-Veg","Tandoori Specials"),
+("Tandoori Deluxe","12.95","Non-Veg","Tandoori Specials"),
+("Tandoori Chicken Main","9.95","Non-Veg","Tandoori Specials"),
+("Boiled Rice","2.50","Veg","Side Orders - Rice"),
+("Keema Pilau Rice","3.50","Non-Veg","Side Orders - Rice"),
+("Mushroom Rice","3.20","Veg","Side Orders - Rice"),
+("Garlic Naan","3.00","Veg","Side Orders - Bread"),
+("Stuffed Naan","3.50","Veg","Side Orders - Bread"),
+("Chapati","1.00","Veg","Side Orders - Bread"),
+("Green Salad","2.00","Veg","Side Orders - Sundries"),
+("Spice Popadum","0.80","Veg","Side Orders - Sundries"),
+("Chutney","0.70","Veg","Side Orders - Sundries"),
+("Ras Malai","2.95","Veg","Dessert"),
+("Ice Cream","2.95","Veg","Dessert"),
+("Gulab Jamun","2.95","Veg","Dessert"),
+("Kulfi","2.95","Veg","Dessert"),
+("Kheer","2.95","Veg","Dessert");
+Show tables;
+
+Select * from restaurant_management.branch;
+
+Select * from restaurant_management.branches;
+INSERT INTO branches (name, address) VALUES
+    ('Downtown', '123 Main Street'),
+    ('Uptown', '456 Park Avenue'),
+    ('Westside', '789 Elm Street');
+    ('Eastside', '321 Maple Street'),
+    ('Southside', '987 Oak Avenue');
+
+Select * from restaurant_management.chef;
+INSERT INTO chef (name, branch_id) VALUES
+    ('John Smith', 1),
+    ('Sarah Lee', 2),
+    ('David Kim', 3);
+    ('Jessica Brown', 1),
+    ('Tyler Nguyen', 2),
+    ('Hannah Kim', 3),
+    ('Oliver Lee', 4);
+
+Select * from restaurant_management.mela;
+INSERT INTO meal (name, price) VALUES
+    ('Hamburger', 9.99),
+    ('Cheese Pizza', 12.99),
+    ('Grilled Chicken', 14.99);
+    ('Salmon with Asparagus', 22.99),
+    ('Pesto Pasta', 16.99),
+    ('Beef Stir Fry', 18.99),
+    ('Shrimp Scampi', 21.99);
+
+Select * from restaurant_management.customer;
+INSERT INTO customer (name, email, phone) VALUES
+    ('Jane Doe', 'jane@example.com', '555-1234'),
+    ('Bob Smith', 'bob@example.com', '555-5678'),
+    ('Alice Lee', 'alice@example.com', '555-9012');
+('Michael Johnson', 'michael@example.com', '555-3456'),
+('Emily Davis', 'emily@example.com', '555-7890'),
+('Daniel Lee', 'daniel@example.com', '555-2345'),
+('Sophia Martinez', 'sophia@example.com', '555-6789');
+
+Select * from restaurant_management.order;
+INSERT INTO `order` (customer_id, restaurant_id, waiter_id, meal_id, quantity, total_price) VALUES
+    (1, 1, 1, 1, 2, 19.98),
+    (2, 2, 2, 2, 1, 12.99),
+    (3, 3, 3, 3, 3, 44.97);
+(1, 1, 1, 1, 1, 22.99),
+(2, 2, 2, 2, 2, 33.98),
+(3, 3, 3, 3, 3, 56.97),
+(4, 1, 2, 4, 2, 43.98),
+(2, 2, 5, 2, 1, 16.99),
+(1, 3, 4, 3, 1, 18.99),
+(4, 2, 1, 1, 2, 45.98);
+
+INSERT INTO restaurant (name, address) VALUES
+    ('Joe\'s Diner', '456 Main Street'),
+    ('Tony\'s Pizzeria', '789 Park Avenue'),
+    ('The Steakhouse', '123 Elm Street');
+('The Bistro', '111 Cherry Lane'),
+('La Patisserie', '222 Plum Street'),
+('Taco Town', '333 Orange Avenue');
+
+INSERT INTO waiter (name, branch_id) VALUES
+('Rachel Kim', 1),
+('Aiden Brown', 2),
+('Leah Nguyen', 3),
+('Oscar Lee', 4),
+('Isabella Hernandez', 5);
+  ('Tom Brown', 1),
+    ('Sara Johnson', 2),
+    ('Mike Chen', 3);
+
+
+Trigger:
+Price
+CREATE TRIGGER update_totla_price
+AFTER INSERT ON ‘other’
+FOR EACH ROW
+BEGIN
+	UPDATE ‘order’
+	SET total_price = NEW.quantity * (SELECT price FROM meal WHERE id = NEW.meal_id)
+	WHERE ID = NEW.ID;
+END//
+
+Insert:
+Create Trigger Loan Detail On  Loan Instead Of Insert
+As Begin
+    Declare Name Char(128);
+    Declare L_Id Int;
+    Declare Acc_No  Int;
+    Delcare Balance Int;
+    Select Name = Name, L_Id = L_Id, Acc_No = Acc_No, 
+Balance=Balance       
+From Inserted;
+    If Name Is Null Set Name = Name;
+    Insert Into Loan (Name, L_Id, Acc_No,Balance) Values (Name, L_Id, Acc_No, Balance);
+End;
+
+Update:
+Update the price of the 'Hamburger' meal to $10.99:
+
+
+Update the phone number of the customer with id 2:
+
+
+Update the name of the branch with id 3 to 'Eastside':
+
+
+Update the name of the restaurant with id 2 to 'Gino's Pizzeria':
+
+
+JOIN QUERIES:
+1.Retrieve the name and address of the restaurant where the customer with id 1 placed an order: 
+
+
+2.Retrieve the name and email of the customer who placed an order at the restaurant with id 2:
+
